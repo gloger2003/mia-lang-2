@@ -1,7 +1,7 @@
 import enum
 import io
 import keyword
-from pprint import pprint
+from pprint import pformat, pprint
 import tokenize as tokenizer
 from tokenize import TokenInfo
 import token as T
@@ -33,6 +33,11 @@ class KEYWORDS(enum.Enum):
         except KeyError:
             return False
     
+    
+class VarInstruction:
+    def __init__(self, t_instruction: TokenInfo, t_args: List[TokenInfo]):
+        self._t_instruction = t_instruction
+        self._t_args = t_args
 
 
 class LineNode:
@@ -43,25 +48,63 @@ class LineNode:
         self._id_node: IdNode = None
         self.parse_tokens()
 
-    def parse_tokens(self):
-        for t in self._tokens:
-            tname = t.string
-            tline = t.line
-            ttype = t.type
-            
-            if KEYWORDS.is_keyword(tname):
-                self._instruction_node = InstructionNode()
-                
-            
-        
     def __repr__(self) -> str:
-        return f'LineNode({[k.string for k in self._tokens]} | INST={self._instruction_node} | EXPR={self._expr_node})'
-        
+        return repr(self.to_dict())
+
+    def to_dict(self) -> dict:
+        return {
+            f'LineNode({[k.string for k in self._tokens]}': {
+                'INST': self._instruction_node.to_dict() if self._instruction_node is not None else None,
+                'EXPR': self._expr_node.to_dict() if self._expr_node is not None else None
+            }
+        }
+
+    def parse_tokens(self):
+        for i, t in enumerate(self._tokens):
+            t_name = t.string
+            t_line = t.line
+            t_type = t.type
+            
+            # Что находится в этой строке: Инструкция или Выражение
+            if i == 0:
+                if KEYWORDS.is_keyword(t_name):
+                    t_args = self._tokens[i:]
+                    self._instruction_node = InstructionNode(t, t_args)
+                else:
+                    t_args = self._tokens[i:]
+                    self._expr_node = ExprNode(t, t_args)
+                
 
 class ExprNode:
-    def __init__(self) -> None:
-        pass
-    
+    def __init__(self, t_id: TokenInfo, t_args: List[TokenInfo]) -> None:
+        self._t_id = t_id
+        self._t_args = t_args
+        
+    def __repr__(self) -> str:
+        return repr(self.to_dict())
+        
+    def to_dict(self) -> dict:
+        return {
+            'ExprNode': {'ARGS': [k.string for k in self._t_args]}
+        }
+
+
+class InstructionNode:
+    def __init__(self, t: TokenInfo, t_args: List[TokenInfo]) -> None:
+        self._t_instruction = t
+        self._t_args = t_args
+        
+    def __repr__(self) -> str:
+        return repr(self.to_dict())
+
+    def to_dict(self) -> dict:
+        return {
+            'InstructionNode': {
+                'INST': self._t_instruction.string,
+                'ARGS': [k.string for k in self._t_args]    
+            }
+        }
+        
     
 class ValueNode:
     def __init__(self) -> None:
@@ -73,10 +116,7 @@ class IdNode:
         pass
     
 
-class InstructionNode:
-    def __init__(self, t) -> None:
-        pass
-
+    
 
 f_readline = io.BytesIO(code).readline
 
@@ -96,4 +136,5 @@ for t in tokens:
         continue
     line_tokens.append(t)
         
-pprint(line_nodes, width=10)
+        
+pprint([k.to_dict() for k in line_nodes], width=10)
