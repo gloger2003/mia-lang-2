@@ -37,6 +37,7 @@
                 "EXPR_NODE": {
                     "ExprNode": {
                         "ARGS": [
+                            "a",
                             "=",
                             "10"
                         ]

@@ -117,7 +117,7 @@ class LineNode:
                     t_args = self._tokens[1:]
                     self._instruction_node = InstructionNode(t, t_args)
                 else:
-                    t_args = self._tokens[1:]
+                    t_args = self._tokens[0:]
                     self._expr_node = ExprNode(t, t_args)
                 
 
