@@ -93,8 +93,8 @@ class InstructionNode:
     def __init__(self, t: TokenInfo, t_args: List[TokenInfo]) -> None:
         self._t_instruction = t
         self._t_args = t_args
-        self._instruction_class: Union[VarInstruction, None] = None
-        self._instruction_obj: Union[VarInstruction, None] = None
+        self._instruction_class: Union[m_execs.VarInstruction, None] = None
+        self._instruction_obj: Union[m_execs.VarInstruction, None] = None
         
         self.parse_tokens()
         
@@ -102,7 +102,7 @@ class InstructionNode:
         return repr(self.to_dict())
     
     def parse_tokens(self):
-        instruction_key = KeywordsEnum[self._t_instruction.string]
+        instruction_key = m_enums.KeywordsEnum[self._t_instruction.string]
         self._instruction_class = instruction_key.get_instruction_class()
         t_args = self._t_args[:self._instruction_class.COUNT_OF_ARGS]
         self._instruction_obj = self._instruction_class(self._t_instruction, t_args, instruction_key)

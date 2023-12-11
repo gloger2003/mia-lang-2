@@ -16,35 +16,9 @@
                         ],
                         "INST_OBJ": {
                             "VarInstruction": {
-                                "KEY": "<KEYWORDS.var: 0>",
+                                "KEY": "<KeywordsEnum.var: 0>",
                                 "VAR_TYPE": "<T:IntType(0)>",
                                 "VAR_ID": "a"
-                            }
-                        }
-                    }
-                },
-                "EXPR_NODE": null
-            }
-        },
-        {
-            "LineNode": {
-                "TOKENS": [
-                    "var",
-                    "int",
-                    "b"
-                ],
-                "INST_NODE": {
-                    "InstructionNode": {
-                        "INST": "var",
-                        "ARGS": [
-                            "int",
-                            "b"
-                        ],
-                        "INST_OBJ": {
-                            "VarInstruction": {
-                                "KEY": "<KEYWORDS.var: 0>",
-                                "VAR_TYPE": "<T:IntType(0)>",
-                                "VAR_ID": "b"
                             }
                         }
                     }
@@ -70,31 +44,6 @@
                         "OPERATOR": {
                             "AssignSignleOperator": {
                                 "LINE": "a = 10",
-                                "VARIANT": "<ID> = <VALUE>"
-                            }
-                        }
-                    }
-                }
-            }
-        },
-        {
-            "LineNode": {
-                "TOKENS": [
-                    "a",
-                    "=",
-                    "b"
-                ],
-                "INST_NODE": null,
-                "EXPR_NODE": {
-                    "ExpressionNode": {
-                        "ARGS": [
-                            "a",
-                            "=",
-                            "b"
-                        ],
-                        "OPERATOR": {
-                            "AssignSignleOperator": {
-                                "LINE": "a = b",
                                 "VARIANT": "<ID> = <VALUE>"
                             }
                         }

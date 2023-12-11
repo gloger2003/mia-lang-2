@@ -37,7 +37,7 @@ class TypesEnum(enum.Enum):
     
     def get_type_class(self) -> Union['m_types.IntType', None]:
         mapping = {
-            TypesEnum.int: IntType
+            TypesEnum.int: m_types.IntType
         }
         return mapping.get(self)
     
@@ -53,8 +53,8 @@ class SingleOperatorsEnum(enum.Enum):
         }
         return mapping.get(op_str)
     
-    def get_operator_class(self) -> Union['AssignSingleOperator', None]:
+    def get_operator_class(self) -> Union['m_execs.AssignSingleOperator', None]:
         mapping = {
-            SingleOperatorsEnum.assign: AssignSingleOperator
+            SingleOperatorsEnum.assign: m_execs.AssignSingleOperator
         }
         return mapping.get(self)

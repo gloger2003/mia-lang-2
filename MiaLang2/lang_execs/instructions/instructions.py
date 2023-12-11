@@ -17,7 +17,7 @@ import MiaLang2.lang_execs as m_execs  # noqa: F401
 class VarInstruction:
     COUNT_OF_ARGS = 2
     
-    def __init__(self, t_instruction: TokenInfo, t_args: List[TokenInfo], instruction_key: m_enums.KeywordsEnum):
+    def __init__(self, t_instruction: TokenInfo, t_args: List[TokenInfo], instruction_key: 'm_enums.KeywordsEnum'):
         self._instruction_key = instruction_key
         self._t_instruction = t_instruction
         self._t_args = t_args
