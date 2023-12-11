@@ -17,7 +17,7 @@
                         "INST_OBJ": {
                             "VarInstruction": {
                                 "KEY": "<KEYWORDS.var: 0>",
-                                "VAR_TYPE": "TYPE::IntType(0)",
+                                "VAR_TYPE": "<T:IntType(0)>",
                                 "VAR_ID": "a"
                             }
                         }
@@ -29,18 +29,49 @@
         {
             "LineNode": {
                 "TOKENS": [
+                    "b",
+                    "=",
+                    "10"
+                ],
+                "INST_NODE": null,
+                "EXPR_NODE": {
+                    "ExpressionNode": {
+                        "ARGS": [
+                            "b",
+                            "=",
+                            "10"
+                        ],
+                        "OPERATOR": {
+                            "AssignSignleOperator": {
+                                "LINE": "b = 10",
+                                "VARIANT": "<ID> = <VALUE>"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        {
+            "LineNode": {
+                "TOKENS": [
                     "a",
                     "=",
                     "10"
                 ],
                 "INST_NODE": null,
                 "EXPR_NODE": {
-                    "ExprNode": {
+                    "ExpressionNode": {
                         "ARGS": [
                             "a",
                             "=",
                             "10"
-                        ]
+                        ],
+                        "OPERATOR": {
+                            "AssignSignleOperator": {
+                                "LINE": "a = 10",
+                                "VARIANT": "<ID> = <VALUE>"
+                            }
+                        }
                     }
                 }
             }
