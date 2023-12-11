@@ -1,0 +1,48 @@
+{
+    "__MAIN__": [
+        {
+            "LineNode": {
+                "TOKENS": [
+                    "var",
+                    "int",
+                    "a"
+                ],
+                "INST_NODE": {
+                    "InstructionNode": {
+                        "INST": "var",
+                        "ARGS": [
+                            "int",
+                            "a"
+                        ],
+                        "INST_OBJ": {
+                            "VarInstruction": {
+                                "KEY": "<KEYWORDS.var: 0>",
+                                "VAR_TYPE": "<class '__main__.IntType'>",
+                                "VAR_ID": "a"
+                            }
+                        }
+                    }
+                },
+                "EXPR_NODE": null
+            }
+        },
+        {
+            "LineNode": {
+                "TOKENS": [
+                    "a",
+                    "=",
+                    "10"
+                ],
+                "INST_NODE": null,
+                "EXPR_NODE": {
+                    "ExprNode": {
+                        "ARGS": [
+                            "=",
+                            "10"
+                        ]
+                    }
+                }
+            }
+        }
+    ]
+}
