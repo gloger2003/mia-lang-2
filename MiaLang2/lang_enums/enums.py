@@ -11,7 +11,7 @@ from typing import List, Optional, Tuple, Union
 import MiaLang2.lang_enums as m_enums       # noqa: F401
 import MiaLang2.lang_nodes as m_nodes       # noqa: F401
 import MiaLang2.lang_types as m_types       # noqa: F401
-import MiaLang2.lang_classes as m_classes   # noqa: F401
+import MiaLang2.lang_execs as m_execs   # noqa: F401
 
 
 class KeywordsEnum(enum.Enum):
@@ -25,9 +25,9 @@ class KeywordsEnum(enum.Enum):
         except KeyError:
             return False
     
-    def get_instruction_class(self) -> Union['VarInstruction', None]:
+    def get_instruction_class(self) -> Union['m_execs.VarInstruction', None]:
         mapping = {
-            KeywordsEnum.var: VarInstruction
+            KeywordsEnum.var: m_execs.VarInstruction
         }
         return mapping.get(self)
     
@@ -35,7 +35,7 @@ class KeywordsEnum(enum.Enum):
 class TypesEnum(enum.Enum):
     int = 0
     
-    def get_type_class(self) -> Union['IntType', None]:
+    def get_type_class(self) -> Union['m_types.IntType', None]:
         mapping = {
             TypesEnum.int: IntType
         }
