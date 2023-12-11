@@ -1,11 +1,12 @@
 import enum
 import io
+import json
 import keyword
 from pprint import pformat, pprint
 import tokenize as tokenizer
 from tokenize import TokenInfo
 import token as T
-from typing import List
+from typing import List, Union
 
 code = b"""
 var int a;
@@ -33,11 +34,28 @@ class KEYWORDS(enum.Enum):
         except KeyError:
             return False
     
+    def get_instruction_class(self) -> Union['VarInstruction', None]:
+        mapping = {
+            KEYWORDS.var: VarInstruction
+        }
+        return mapping.get(self)
+    
     
 class VarInstruction:
-    def __init__(self, t_instruction: TokenInfo, t_args: List[TokenInfo]):
+    COUNT_OF_ARGS = 2
+    
+    def __init__(self, t_instruction: TokenInfo, t_args: List[TokenInfo], instruction_key: KEYWORDS):
+        self._instruction_key = instruction_key
         self._t_instruction = t_instruction
         self._t_args = t_args
+        
+    def to_dict(self):
+        return {
+            'VarInstruction': {
+                'KEY': self._instruction_key,
+                'ARGS': [k.string for k in self._t_args]
+            }
+        }
 
 
 class LineNode:
@@ -85,7 +103,9 @@ class ExprNode:
         
     def to_dict(self) -> dict:
         return {
-            'ExprNode': {'ARGS': [k.string for k in self._t_args]}
+            'ExprNode': {
+                'ARGS': [k.string for k in self._t_args]
+            }
         }
 
 
@@ -93,15 +113,26 @@ class InstructionNode:
     def __init__(self, t: TokenInfo, t_args: List[TokenInfo]) -> None:
         self._t_instruction = t
         self._t_args = t_args
+        self._instruction_class: Union[VarInstruction, None] = None
+        self._instruction_obj: Union[VarInstruction, None] = None
+        
+        self.parse_tokens()
         
     def __repr__(self) -> str:
         return repr(self.to_dict())
+    
+    def parse_tokens(self):
+        instruction_key = KEYWORDS[self._t_instruction.string]
+        self._instruction_class = instruction_key.get_instruction_class()
+        t_args = self._t_args[:self._instruction_class.COUNT_OF_ARGS]
+        self._instruction_class = self._instruction_class(self._t_instruction, t_args, instruction_key)
 
     def to_dict(self) -> dict:
         return {
             'InstructionNode': {
                 'INST': self._t_instruction.string,
-                'ARGS': [k.string for k in self._t_args]    
+                'ARGS': [k.string for k in self._t_args],
+                'INST_OBJ': self._instruction_obj.to_dict() if self._instruction_obj is not None else None
             }
         }
         
@@ -136,5 +167,5 @@ for t in tokens:
         continue
     line_tokens.append(t)
         
-        
-pprint([k.to_dict() for k in line_nodes], width=10)
+with open('./dump.json', 'w') as f:     
+    json.dump([k.to_dict() for k in line_nodes], f, ensure_ascii=False, indent=4)
