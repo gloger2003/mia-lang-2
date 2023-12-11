@@ -10,7 +10,9 @@ from typing import List, Optional, Tuple, Union
 
 code = b"""
 var int a;
+var int b;
 a = 10;
+a = b;
 """
 
 # [ - LSQB
@@ -23,7 +25,7 @@ a = 10;
 # = - EQUAL
 # , - COMMA
 
-class KEYWORDS(enum.Enum):
+class KeywordsEnum(enum.Enum):
     var = 0
     
     @classmethod
@@ -36,7 +38,7 @@ class KEYWORDS(enum.Enum):
     
     def get_instruction_class(self) -> Union['VarInstruction', None]:
         mapping = {
-            KEYWORDS.var: VarInstruction
+            KeywordsEnum.var: VarInstruction
         }
         return mapping.get(self)
 
@@ -102,7 +104,7 @@ class AssignSingleOperator:
 class VarInstruction:
     COUNT_OF_ARGS = 2
     
-    def __init__(self, t_instruction: TokenInfo, t_args: List[TokenInfo], instruction_key: KEYWORDS):
+    def __init__(self, t_instruction: TokenInfo, t_args: List[TokenInfo], instruction_key: KeywordsEnum):
         self._instruction_key = instruction_key
         self._t_instruction = t_instruction
         self._t_args = t_args
@@ -158,7 +160,7 @@ class LineNode:
             
             # Что находится в этой строке: Инструкция или Выражение
             if i == 0:
-                if KEYWORDS.is_keyword(t_name):
+                if KeywordsEnum.is_keyword(t_name):
                     t_args = self._tokens[1:]
                     self._instruction_node = InstructionNode(t, t_args)
                 else:
@@ -172,8 +174,6 @@ class ExpressionNode:
         
         self._operator_class: Union[AssignSingleOperator, None] = None
         self._operator_obj: Union[AssignSingleOperator, None] = None
-        # self._t1 = None
-        # self._t2 = 
         
         self.parse_tokens()
         
@@ -221,7 +221,7 @@ class InstructionNode:
         return repr(self.to_dict())
     
     def parse_tokens(self):
-        instruction_key = KEYWORDS[self._t_instruction.string]
+        instruction_key = KeywordsEnum[self._t_instruction.string]
         self._instruction_class = instruction_key.get_instruction_class()
         t_args = self._t_args[:self._instruction_class.COUNT_OF_ARGS]
         self._instruction_obj = self._instruction_class(self._t_instruction, t_args, instruction_key)

@@ -29,26 +29,27 @@
         {
             "LineNode": {
                 "TOKENS": [
-                    "b",
-                    "=",
-                    "10"
+                    "var",
+                    "int",
+                    "b"
                 ],
-                "INST_NODE": null,
-                "EXPR_NODE": {
-                    "ExpressionNode": {
+                "INST_NODE": {
+                    "InstructionNode": {
+                        "INST": "var",
                         "ARGS": [
-                            "b",
-                            "=",
-                            "10"
+                            "int",
+                            "b"
                         ],
-                        "OPERATOR": {
-                            "AssignSignleOperator": {
-                                "LINE": "b = 10",
-                                "VARIANT": "<ID> = <VALUE>"
+                        "INST_OBJ": {
+                            "VarInstruction": {
+                                "KEY": "<KEYWORDS.var: 0>",
+                                "VAR_TYPE": "<T:IntType(0)>",
+                                "VAR_ID": "b"
                             }
                         }
                     }
-                }
+                },
+                "EXPR_NODE": null
             }
         },
         {
@@ -69,6 +70,31 @@
                         "OPERATOR": {
                             "AssignSignleOperator": {
                                 "LINE": "a = 10",
+                                "VARIANT": "<ID> = <VALUE>"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        {
+            "LineNode": {
+                "TOKENS": [
+                    "a",
+                    "=",
+                    "b"
+                ],
+                "INST_NODE": null,
+                "EXPR_NODE": {
+                    "ExpressionNode": {
+                        "ARGS": [
+                            "a",
+                            "=",
+                            "b"
+                        ],
+                        "OPERATOR": {
+                            "AssignSignleOperator": {
+                                "LINE": "a = b",
                                 "VARIANT": "<ID> = <VALUE>"
                             }
                         }
