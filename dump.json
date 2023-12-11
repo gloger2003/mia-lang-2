@@ -17,7 +17,7 @@
                         "INST_OBJ": {
                             "VarInstruction": {
                                 "KEY": "<KEYWORDS.var: 0>",
-                                "VAR_TYPE": "<class '__main__.IntType'>",
+                                "VAR_TYPE": "TYPE::IntType(0)",
                                 "VAR_ID": "a"
                             }
                         }

@@ -51,9 +51,13 @@ class TYPES(enum.Enum):
         return mapping.get(self)
 
 class IntType:
-    def __init__(self, value: int = None):
-        self._value = value
-        
+    DEFAULT_VALUE = 0
+    
+    def __init__(self):
+        self._value = __class__.DEFAULT_VALUE
+
+    def __repr__(self) -> str:
+        return f'TYPE::IntType({self._value})'
     
 class VarInstruction:
     COUNT_OF_ARGS = 2
@@ -63,7 +67,8 @@ class VarInstruction:
         self._t_instruction = t_instruction
         self._t_args = t_args
         
-        self.var_type: Union[IntType, None] = None
+        self.var_type_class: Union[IntType, None] = None
+        self.var_type_obj = None
         self.var_id: str = None
         
         self.parse_tokens()
@@ -71,7 +76,8 @@ class VarInstruction:
     def parse_tokens(self):
         v_type = self._t_args[0].string
         v_id = self._t_args[1].string
-        self.var_type = TYPES[v_type].get_type_class()
+        self.var_type_class = TYPES[v_type].get_type_class()
+        self.var_type_obj = self.var_type_class()
         self.var_id = v_id
         pass
         
@@ -79,7 +85,7 @@ class VarInstruction:
         return {
             'VarInstruction': {
                 'KEY': repr(self._instruction_key),
-                'VAR_TYPE': repr(self.var_type),
+                'VAR_TYPE': repr(self.var_type_obj),
                 'VAR_ID': self.var_id
             }
         }
