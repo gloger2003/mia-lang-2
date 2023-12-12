@@ -16,7 +16,7 @@
                         ],
                         "INST_OBJ": {
                             "VarInstruction": {
-                                "INST_NODE": "<MiaLang2.lang_nodes.nodes.InstructionNode object at 0x7fe2a71a0c10>",
+                                "INST_NODE": "<MiaLang2.lang_nodes.instruction.InstructionNode object at 0x7fd5d236cd00>",
                                 "VAR_TYPE": "<IntType(0)>",
                                 "VAR_ID": "a"
                             }
