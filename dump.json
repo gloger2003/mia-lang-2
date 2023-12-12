@@ -16,8 +16,8 @@
                         ],
                         "INST_OBJ": {
                             "VarInstruction": {
-                                "KEY": "<KeywordsEnum.var: 0>",
-                                "VAR_TYPE": "<T:IntType(0)>",
+                                "INST_NODE": "<MiaLang2.lang_nodes.nodes.InstructionNode object at 0x7fe2a71a0c10>",
+                                "VAR_TYPE": "<IntType(0)>",
                                 "VAR_ID": "a"
                             }
                         }
@@ -44,6 +44,31 @@
                         "OPERATOR": {
                             "AssignSignleOperator": {
                                 "LINE": "a = 10",
+                                "VARIANT": "<ID> = <VALUE>"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        {
+            "LineNode": {
+                "TOKENS": [
+                    "b",
+                    "=",
+                    "\"ffff\""
+                ],
+                "INST_NODE": null,
+                "EXPR_NODE": {
+                    "ExpressionNode": {
+                        "ARGS": [
+                            "b",
+                            "=",
+                            "\"ffff\""
+                        ],
+                        "OPERATOR": {
+                            "AssignSignleOperator": {
+                                "LINE": "b = \"ffff\"",
                                 "VARIANT": "<ID> = <VALUE>"
                             }
                         }
